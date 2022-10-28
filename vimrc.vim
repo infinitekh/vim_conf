@@ -1,31 +1,29 @@
 call plug#begin('~/.vim/plugged')
 
 " 설치
-Plug 'Shougo/ddc.vim'
-Plug 'vim-denops/denops.vim'
-" Install your sources
-Plug 'Shougo/ddc-around'
-" Install your filters
-Plug 'Shougo/ddc-matcher_head'
-Plug 'Shougo/ddc-sorter_rank'
-" List ends here. Plugins become visible to Vim after this call.
 "
 "
-Plug 'vim-denops/denops.vim'
-Plug 'Shougo/ddx.vim'
+"
+
+"Plug 'ycm-core/YouCompleteMe'
+
 " qmll vim
 Plug 'peterhoeg/vim-qml'
 
 
+" omni
+Plug 'vim-scripts/OmniCppComplete'
+Plug 'vim-scripts/Qt.vim'
+let g:clang_library_path='/usr/lib/llvm-14/lib/libclang-14.so.1'
+"ctag cscope 보다 쉽고 쉽다. 
+"
+Plug 'WolfgangMehner/latex-support'
 
-if has('nvim')
-"Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-else
-"Plug 'Shougo/deoplete.nvim'
-Plug 'roxma/nvim-yarp'
-Plug 'roxma/vim-hug-neovim-rpc'
-endif
-"let g:deoplete#enable_at_startup = 1
+" orgmode
+Plug 'jceb/vim-orgmode'
+
+
+"neosnipeet
 Plug 'Shougo/neosnippet.vim'
 Plug 'Shougo/neosnippet-snippets'
 imap <C-k>     <Plug>(neosnippet_expand_or_jump)
@@ -88,11 +86,26 @@ imap <c-x><c-k> <plug>(fzf-complete-word)
 imap <c-x><c-f> <plug>(fzf-complete-path)
 imap <c-x><c-l> <plug>(fzf-complete-line)
 
-
-
-
-
 Plug 'honza/vim-snippets'
+
+" vimman
+Plug 'vim-utils/vim-man'
+" vim complete
+Plug 'infinitekh/VimCompletesMe_targetvim9'
+Plug 'prabirshrestha/async.vim'
+Plug 'prabirshrestha/vim-lsp'
+Plug 'thomasfaingnaert/vim-lsp-snippets'
+Plug 'thomasfaingnaert/vim-lsp-neosnippet'
+
+autocmd User lsp_setup call lsp#register_server({
+            \ 'name': 'clangd',
+            \ 'cmd': {server_info->['clangd']},
+            \ 'whitelist': ['c', 'cpp', 'objc', 'objcpp', 'cc'],
+            \ 'config': { 'snippets': 0 }
+            \ })
+
+
+
 Plug 'tpope/vim-surround'
 Plug 'infinitekh/HOMM3_ERM.vim'
 
@@ -157,31 +170,7 @@ call plug#end()
 
 "call plug#end()
 " 설정
-" https://github.com/Shougo/ddc-around
-call ddc#custom#patch_global('sources', ['around'])
-" Use matcher_head and sorter_rank.
-call ddc#custom#patch_global('sourceOptions', {
-      \ '_': {
-      \   'matchers': ['matcher_head'],
-      \   'sorters': ['sorter_rank']},
-      \ })
-" Change source options
-call ddc#custom#patch_global('sourceOptions', {
-      \ 'around': {'mark': 'A'},
-      \ })
-call ddc#custom#patch_global('sourceParams', {
-      \ 'around': {'maxSize': 500},
-      \ })
-" Mappings
-" <TAB>: completion.
-inoremap <silent><expr> <TAB>
-\ ddc#map#pum_visible() ? '<C-n>' :
-\ (col('.') <= 1 <Bar><Bar> getline('.')[col('.') - 2] =~# '\s') ?
-\ '<TAB>' : ddc#map#manual_complete()
-" <S-TAB>: completion back.
-inoremap <expr><S-TAB>  ddc#map#pum_visible() ? '<C-p>' : '<C-h>'
-" Use ddc.
-call ddc#enable()
+"
 
 filetype plugin indent on     " required!
 filetype indent on
@@ -347,7 +336,9 @@ xmap <C-k>     <Plug>(neosnippet_expand_target)
 smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
 \ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
 
-let g:neosnippet#snippets_directory="/home/kh/.vim/MyNeoSnippets"
+let g:neosnippet#enable_snipmate_compatibility = 1
+let g:neosnippet#snippets_directory="/home/kh/.vim/MyNeoSnippets,/home/kh/.vim/plugged/vim-snippets/snippets/"
+
 
 
 
@@ -374,7 +365,7 @@ autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in
 autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
 autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
 autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+autocmd FileType python setlocal omnifunc=python3complete#Complete
 autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 
 
@@ -384,7 +375,6 @@ colorscheme desert
 inoremap \fn <C-R>=expand("%:t")<CR>
 vnoremap \fn <C-R>=expand("%:t")<CR>
 "put=expand('%:t')
-
 
 
 " live down preview
@@ -499,3 +489,80 @@ else
   let s:python_version = 0
 endif
 echomsg 'Using python'.s:python_version
+
+
+"jedi-vim setup
+let g:jedi#auto_initialization = 1
+
+let g:jedi#goto_command = "<leader>d"
+let g:jedi#goto_assignments_command = "<leader>g"
+let g:jedi#goto_stubs_command = "<leader>s"
+let g:jedi#goto_definitions_command = ""
+let g:jedi#documentation_command = "K"
+let g:jedi#usages_command = "<leader>n"
+let g:jedi#completions_command = "<leader><Space>"
+let g:jedi#rename_command = "<leader>r"
+let g:jedi#environment_path = "/usr/bin/python3"
+
+"omnicpp
+
+let OmniCpp_DefaultNamespaces = ["std", "kh"]
+map <S-F12> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
+
+
+
+vmap <C-c> "+y
+vmap <C-x> "+d
+vmap <C-S-v> "*<Esc>"+p
+imap <C-S-v> <Esc>"+pi
+
+packadd lsp
+let lspServers = [
+			\     #{
+			\        filetype: ['c', 'cpp'],
+			\        path: '/usr/bin/clangd',
+			\        args: ['--background-index']
+			\      },
+			\     #{
+			\	 filetype: ['javascript', 'typescript'],
+			\	 path: '/usr/local/bin/typescript-language-server',
+			\	 args: ['--stdio']
+			\      },
+			\     #{
+			\	 filetype: 'sh',
+			\	 path: '/usr/local/bin/bash-language-server',
+			\	 args: ['start']
+			\      },
+			\     #{
+			\	 filetype: 'vim',
+			\	 path: '/usr/local/bin/vim-language-server',
+			\	 args: ['--stdio']
+			\      },
+			\     #{
+			\	 filetype: ['go', 'gomod'],
+			\	 path: '/usr/bin/gopls',
+			\	 args: ['serve'],
+			\        syncInit: v:true
+			\      },
+			\     #{
+			\	 filetype: ['rust'],
+			\	 path: '/home/kh/.local/bin/rust-analyzer',
+			\	 args: [],
+		\        syncInit: v:true
+			\      },
+			\     #{
+			\	 filetype: ['python'],
+			\	 path: '/usr/bin/pyls',
+			\	 args: []
+			\      }
+			\   ]
+call LspAddServer(lspServers)
+
+
+" https://github.com/lilydjwg/fcitx.vim
+
+packadd fcitx
+let g:fcitx5_remote = '/usr/bin/fcitx5-remote'
+set ttimeoutlen=100
+
+

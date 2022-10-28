@@ -1,33 +1,9 @@
-[submodule "plugged/vim-pug"]
-	path = plugged/vim-pug
-	url = https://github.com/digitaltoad/vim-pug
 [submodule "plugged/HOMM3_ERM.vim"]
 	path = plugged/HOMM3_ERM.vim
 	url = https://github.com/infinitekh/HOMM3_ERM.vim.git
 [submodule "plugged/ctrlp.vim"]
 	path = plugged/ctrlp.vim
 	url = https://github.com/ctrlpvim/ctrlp.vim.git
-[submodule "plugged/ddc-around"]
-	path = plugged/ddc-around
-	url = https://github.com/Shougo/ddc-around.git
-[submodule "plugged/ddc-matcher_head"]
-	path = plugged/ddc-matcher_head
-	url = https://github.com/Shougo/ddc-matcher_head.git
-[submodule "plugged/ddc-sorter_rank"]
-	path = plugged/ddc-sorter_rank
-	url = https://github.com/Shougo/ddc-sorter_rank.git
-[submodule "plugged/ddc.vim"]
-	path = plugged/ddc.vim
-	url = https://github.com/Shougo/ddc.vim.git
-[submodule "plugged/ddx.vim"]
-	path = plugged/ddx.vim
-	url = https://github.com/Shougo/ddx.vim.git
-[submodule "plugged/denops.vim"]
-	path = plugged/denops.vim
-	url = https://github.com/vim-denops/denops.vim.git
-[submodule "plugged/deoplete.nvim"]
-	path = plugged/deoplete.nvim
-	url = https://github.com/Shougo/deoplete.nvim.git
 [submodule "plugged/emmet-vim"]
 	path = plugged/emmet-vim
 	url = https://github.com/mattn/emmet-vim.git
@@ -52,9 +28,6 @@
 [submodule "plugged/nerdtree"]
 	path = plugged/nerdtree
 	url = https://github.com/preservim/nerdtree.git
-[submodule "plugged/nvim-yarp"]
-	path = plugged/nvim-yarp
-	url = https://github.com/roxma/nvim-yarp.git
 [submodule "plugged/quick-scope"]
 	path = plugged/quick-scope
 	url = https://github.com/unblevable/quick-scope.git
@@ -103,9 +76,6 @@
 [submodule "plugged/vim-gtrans"]
 	path = plugged/vim-gtrans
 	url = https://github.com/haya14busa/vim-gtrans.git
-[submodule "plugged/vim-hug-neovim-rpc"]
-	path = plugged/vim-hug-neovim-rpc
-	url = https://github.com/roxma/vim-hug-neovim-rpc.git
 [submodule "plugged/vim-livedown"]
 	path = plugged/vim-livedown
 	url = https://github.com/shime/vim-livedown.git
@@ -130,3 +100,15 @@
 [submodule "plugged/vimtex"]
 	path = plugged/vimtex
 	url = https://github.com/lervag/vimtex.git
+[submodule "plugged/latex-support"]
+	path = plugged/latex-support
+	url = https://github.com/WolfgangMehner/latex-support
+[submodule "plugged/vim-orgmode"]
+	path = plugged/vim-orgmode
+	url = https://github.com/jceb/vim-orgmode.git
+[submodule "plugged/Qt.vim"]
+	path = plugged/Qt.vim
+	url = https://github.com/vim-scripts/Qt.vim
+[submodule "plugged/VimCompletesMe_targetvim9"]
+	path = plugged/VimCompletesMe_targetvim9
+	url = https://github.com/infinitekh/VimCompletesMe_targetvim9
