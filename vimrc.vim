@@ -3,13 +3,17 @@ call plug#begin('~/.vim/plugged')
 " 설치
 "
 "
-"
+"sql
+"Plug 'cosminadrianpopescu/vim-sql-workbench'
+Plug 'vim-scripts/dbext.vim'
 
-"Plug 'ycm-core/YouCompleteMe'
+" Snippets are separated from the engine. Add this if you want them:
+Plug 'honza/vim-snippets'
 
-" qmll vim
 Plug 'peterhoeg/vim-qml'
 
+"conceal unicode
+Plug 'khzaw/vim-conceal'
 
 " omni
 Plug 'vim-scripts/OmniCppComplete'
@@ -17,7 +21,8 @@ Plug 'vim-scripts/Qt.vim'
 let g:clang_library_path='/usr/lib/llvm-14/lib/libclang-14.so.1'
 "ctag cscope 보다 쉽고 쉽다. 
 "
-Plug 'WolfgangMehner/latex-support'
+"Plug 'WolfgangMehner/latex-support'
+Plug 'WolfgangMehner/c-support'
 
 " orgmode
 Plug 'jceb/vim-orgmode'
@@ -26,23 +31,10 @@ Plug 'jceb/vim-orgmode'
 "neosnipeet
 Plug 'Shougo/neosnippet.vim'
 Plug 'Shougo/neosnippet-snippets'
-imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-smap <C-k>     <Plug>(neosnippet_expand_or_jump)
-xmap <C-k>     <Plug>(neosnippet_expand_target)
 
 " SuperTab like snippets behavior.
 " Note: It must be "imap" and "smap".  It uses <Plug> mappings.
-"imap <expr><TAB>
-" \ pumvisible() ? "\<C-n>" :
-" \ neosnippet#expandable_or_jumpable() ?
-" \    "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
-smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-\ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
 
-" For conceal markers.
-"if has('conceal')
-"set conceallevel=2 concealcursor=niv
-"endif
 
 " Any valid git URL is allowed
 Plug 'https://github.com/junegunn/vim-github-dashboard.git'
@@ -51,24 +43,25 @@ Plug 'https://github.com/junegunn/vim-github-dashboard.git'
 
 Plug 'jpalardy/vim-slime' " vim send message to terminal
 "
-Plug 'preservim/nerdtree' " nerdtree
-Plug 'vim-syntastic/syntastic' " syntastic
+Plug 'preservim/nerdtree' " nerdtree 5Star
+Plug 'scrooloose/syntastic' " syntastic
 "color scheme
 Plug 'tomasr/molokai'
+Plug 'ujihisa/unite-colorscheme'
 Plug 'flazz/vim-colorschemes'
 Plug 'itchyny/lightline.vim'
 
 " Plugin auto completion
 
-" C
-
+" Cscople  를 알아야함. leader>s: 이런식의 사용인데 쓸주를 모름.
 Plug 'ronakg/quickr-cscope.vim'
+"
 Plug 'majutsushi/tagbar'
 " git
 Plug 'tpope/vim-fugitive' " git log  airline
 Plug 'airblade/vim-gitgutter' " view code change 
 "
-Plug 'ujihisa/unite-colorscheme'
+" high light fF tT color
 Plug 'unblevable/quick-scope' 
 " You can specify revision/branch/tag.
 Plug 'kalafut/vim-taskjuggler'
@@ -80,7 +73,7 @@ Plug 'junegunn/fzf.vim'
 nmap <leader><tab> <plug>(fzf-maps-n)
 xmap <leader><tab> <plug>(fzf-maps-x)
 omap <leader><tab> <plug>(fzf-maps-o)
-		
+
 " Insert mode completion
 imap <c-x><c-k> <plug>(fzf-complete-word)
 imap <c-x><c-f> <plug>(fzf-complete-path)
@@ -90,27 +83,55 @@ Plug 'honza/vim-snippets'
 
 " vimman
 Plug 'vim-utils/vim-man'
-" vim complete
+" vim complete infinitekh
+"
 Plug 'infinitekh/VimCompletesMe_targetvim9'
+Plug 'infinitekh/HOMM3_ERM.vim'
+
+"<Plug> vala vim 
+Plug 'vala-lang/vala.vim'
+"vim9 
+" 흠 \F 잘써야하는데... 
+Plug 'monkoose/vim9-stargate'
+"" For 1 character to search before showing hints
+"noremap <leader>f <Cmd>call stargate#OKvim(1)<CR>
+"" For 2 consecutive characters to search
+noremap <leader>F <Cmd>call stargate#OKvim(2)<CR>
+nnoremap <leader>w <Cmd>call stargate#Galaxy()<CR>
+"" for the start of a word
+"noremap <leader>w <Cmd>call stargate#OKvim('\<')<CR>
+"" for the end of a word
+"noremap <leader>e <Cmd>call stargate#OKvim('\S\>')<CR>
+"" for the start of a line
+"noremap <leader>l <Cmd>call stargate#OKvim('\_^')<CR>
+"" for the last character on the line
+"noremap <leader>E <Cmd>call stargate#OKvim('\S\s*$')<CR>
+"" for the end of a line
+"noremap <leader>$ <Cmd>call stargate#OKvim('$')<CR>
+"" for any bracket, parentheses or curly bracket
+"noremap <leader>[ <Cmd>call stargate#OKvim('[(){}[\]]')<CR>
+"
+highlight default StargateFocus guifg=#958c6a
+highlight default StargateDesaturate guifg=#49423f
+highlight default StargateError guifg=#d35b4b
+highlight default StargateLabels guifg=#caa247 guibg=#171e2c
+highlight default StargateErrorLabels guifg=#caa247 guibg=#551414
+highlight default StargateMain guifg=#f2119c gui=bold cterm=bold
+highlight default StargateSecondary guifg=#11ebff gui=bold cterm=bold
+highlight default StargateShip guifg=#111111 guibg=#caa247
+highlight default StargateVIM9000 guifg=#111111 guibg=#b2809f gui=bold cterm=bold
+highlight default StargateMessage guifg=#a5b844
+highlight default StargateErrorMessage guifg=#e36659
+highlight default link StargateVisual Visual
+
+
+
 Plug 'prabirshrestha/async.vim'
-Plug 'prabirshrestha/vim-lsp'
-Plug 'thomasfaingnaert/vim-lsp-snippets'
-Plug 'thomasfaingnaert/vim-lsp-neosnippet'
-
-autocmd User lsp_setup call lsp#register_server({
-            \ 'name': 'clangd',
-            \ 'cmd': {server_info->['clangd']},
-            \ 'whitelist': ['c', 'cpp', 'objc', 'objcpp', 'cc'],
-            \ 'config': { 'snippets': 0 }
-            \ })
-
 
 
 Plug 'tpope/vim-surround'
-Plug 'infinitekh/HOMM3_ERM.vim'
 
 Plug 'ctrlpvim/ctrlp.vim' " file search
-""Plug 'https://bitbucket.org/kovisoft/slimv'
 
 " User add package
 "Plug 'gabrielelana/vim-markdown'
@@ -119,13 +140,12 @@ Plug 'shime/vim-livedown'
 " pretty status bar 
 Plug 'vim-airline/vim-airline'
 "python tool
-Plug 'davidhalter/jedi-vim'
-Plug 'tell-k/vim-autopep8'
+"Plug 'davidhalter/jedi-vim'
 
 "IM control
-autocmd FileType python set omnifunc=python3complete#Complete
 
-
+" Python convension  안쓰니까 일단 stop
+Plug 'tell-k/vim-autopep8'
 let g:syntastic_python_checkers = [ 'pep8' ]
 "let g:syntastic_python_checkers = [ 'flake8' ]
 let g:syntastic_always_populate_loc_list = 1
@@ -133,68 +153,117 @@ let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_wq = 0
 
-syntax on
 
 
 
 "latex
 "
 Plug 'lervag/vimtex'
+"augroup VimCompletesMeTex
+"	autocmd!
+"	autocmd FileType tex
+"			let b:vcm_omni_pattern = g:vimtex#re#neocomplete
+"augroup END
+
+" Using neosnippet#anonymous
+
+
+let g:vimtex_imaps_leader= '`'
+
 let g:tex_flavor='latex'
 let g:vimtex_view_method='zathura'
 let g:vimtex_quickfix_mode=0
-set conceallevel=1
-let g:tex_conceal='abdmg'
+
+let g:vimtex_compiler_method = 'generic'
+function! Callback(msg)
+	" Use a regex match on the compiler output to get automatic VimtexErrors
+	" functionality. The below conditional must likely be changed to be
+	" useful, of course!
+	if a:msg =~# 'error'
+		call vimtex#compiler#callback(!vimtex#qf#inquire(b:vimtex.tex))
+	endif
+endfunction
+let g:vimtex_compiler_generic = {
+			\ 'command' : 'xelatex -synctex=1 --interaction=nonstopmode main.tex',
+			\ 'hooks': [function('Callback')],
+			\}
+
+function! SetupSplits() abort
+	split
+	set conceallevel=2
+	set scrollbind
+	wincmd w
+	set conceallevel=0
+	set scrollbind
+	syncbind
+endfunction
+function! Restore() abort
+	close
+	set conceallevel=0
+	set noscrollbind
+endfunction
+
+let g:vimtex_syntax_custom_cmds = [ {'name': 'vect', 'mathmode': 1, 'argstyle': 'bold', 'conceal': 1}]
+"let g:vimtex_syntax_custom_cmds = [ {'name': 'vect', 'mathmode': 1, 'argstyle': 'bold', 'conceal': 1}, {'name': 'mat' , 'mathmode': 1, 'argstyle': 'bold', 'conceal': 1}, {'name': 'bm'  , 'mathmode': 1, 'argstyle': 'bold', 'conceal': 1}, {'name': 'pmb' , 'mathmode': 1, 'argstyle': 'bold', 'conceal': 1}, \ Unicode:, {'name': 'Prob'    , 'mathmode': 1, 'concealchar': 'ℙ'}, {'name': 'Expect'  , 'mathmode': 1, 'concealchar': '������'}, {'name': 'Var'     , 'mathmode': 1, 'concealchar': '������'}, {'name': 'pdf'     , 'mathmode': 1, 'concealchar': '������'}, {'name': 'qdf'     , 'mathmode': 1, 'concealchar': '������'}, {'name': 'NormDist', 'mathmode': 1, 'concealchar': '������'}, {'name': 'Reals'   , 'mathmode': 1, 'concealchar': 'ℝ'}, {'name': 'Imags'   , 'mathmode': 1, 'concealchar': '������'}, {'name': 'Naturals', 'mathmode': 1, 'concealchar': 'ℕ'}, {'name': 'Integers', 'mathmode': 1, 'concealchar': 'ℤ'}, {'name': 'ones'    , 'mathmode': 1, 'concealchar': '������'}, {'name': 'bigO'    , 'mathmode': 1, 'concealchar': '������'}, ]
+"set conceallevel=1
+"let g:tex_conceal='abdmg'
+augroup VimTeX
+	autocmd!
+	autocmd BufReadPre /home/kh/Dropbox/LaTex/thesis_doctor/*.tex
+				\ let b:vimtex_main = '/home/kh/Dropbox/LaTex/thesis_doctor/main.tex'
+	autocmd BufWritePost *.tex call vimtex#toc#refresh()
+augroup END
 
 
 " HTML CSS Javascript
-Plug 'mattn/emmet-vim'
-" pretty view
-Plug 'junegunn/vim-easy-align'
+Plug 'mattn/emmet-vim' " 4Star
+" pretty view [10]
+Plug 'junegunn/vim-easy-align' " 5Star
 xmap ga <Plug>(EasyAlign)
 nmap ga <Plug>(EasyAlign)
 
-Plug 'godlygeek/tabular'
+Plug 'godlygeek/tabular'  " easyalign like tool
 " Gtrans
 Plug 'haya14busa/vim-gtrans'
-Plug 'WolfgangMehner/vim-plugins'
+
+"Doxygen
+Plug 'vim-scripts/DoxygenToolkit.vim'
+
+"Wolfgang
+"Plug 'WolfgangMehner/vim-plugins'
 
 
 " GLSL 
-Plug 'tikhomirov/vim-glsl'
+"Plug 'tikhomirov/vim-glsl'
 
 " 벽돌깨기 
-Plug 'johngrib/vim-game-code-break'
+"Plug 'johngrib/vim-game-code-break'
 call plug#end()
 
-
-"call plug#end()
-" 설정
-"
-
+"colorscheme
+"colorscheme molokai
+"colorscheme shine
+"colorscheme desert
+colorscheme gruvbox  " tyanjournal.com/timps/neovim-c-ide/ 에서 추천받음.
 filetype plugin indent on     " required!
-filetype indent on
 syntax on
-
-
 scripte utf-8
 
 
 
 
-" Required:
-filetype plugin indent on
 
 " If there are uninstalled bundles found on startup,
 " this will conveniently prompt you to install them.
 "End PlugScripts-------------------------
 
 
-set nocompatible    " Vim 디폴트 기능들을 사용함
+"set nocompatible    " Vim 디폴트 기능들을 사용함
 set backspace=2     " 삽입 모드에서 백스페이스를 계속 허용
-set autoindent      " 자동 들여쓰기
+set autoindent      " 자동 들여쓰기 
 set cindent         " c언어 자동 들여쓰기
-set smartindent     " 자동 들여쓰기
+"set smartindent     " 자동 들여쓰기 reddit/vim 에서 권장하지 않음. for
+"normal text only
 "set textwidth=76    " 76번째 칸을 넘어가면 자동으로 줄 바꿈
 set nowrapscan      " 찾기에서 파일의 맨 끝에 이르면 계속하여 찾지 않음
 "set nobackup       " 백업파일을 만들지 않음
@@ -207,7 +276,7 @@ set showcmd         " (부분적인) 명령어를 상태라인에 보여줌
 set showmatch       " 매치도는 괄호의 반대쪽을 보여줌
 "set ignorecase      " 찾기에서 대/소문자를 구별하지 않음
 set incsearch       " 점진적으로 찾기
-set autowrite       " :next나 :make같은 명령을 입력하면 자동으로 저장
+"set autowrite       " :next나 :make같은 명령을 입력하면 자동으로 저장
 set title           " 타이틀바에 현재 편집중인 파일을 표시
 set nu              " 라인번호
 syntax on           " 문법 강조기능
@@ -224,19 +293,19 @@ set cst
 set nocsverb
 
 if filereadable("./cscope.out")
-cs add cscope.out
-"else 
-"	cs add /usr/src/linux/cscope.out
+	cs add cscope.out
+	"else 
+	"	cs add /usr/src/linux/cscope.out
 endif
 set csverb
 "==============================================
 
 
 function! ResCur()
-if line("'\"") <= line("$")
-normal! g`"
-return 1
-endif
+	if line("'\"") <= line("$")
+		normal! g`"
+		return 1
+	endif
 endfunction
 
 set viminfo='10,\"100,:20,%,n~/.viminfo
@@ -245,30 +314,30 @@ set viminfo='10,\"100,:20,%,n~/.viminfo
 
 
 augroup resCur
-autocmd!
-if has("folding")
-autocmd BufWinEnter * if ResCur() | call UnfoldCur() | endif
-else
-autocmd BufWinEnter * call ResCur()
-endif
+	autocmd!
+	if has("folding")
+		autocmd BufWinEnter * if ResCur() | call UnfoldCur() | endif
+	else
+		autocmd BufWinEnter * call ResCur()
+	endif
 augroup END
 if has("folding")
-function! UnfoldCur()
-if !&foldenable
-return
-endif
-let cl = line(".")
-if cl <= 1
-return
-endif
-let cf  = foldlevel(cl)
-let uf  = foldlevel(cl - 1)
-let min = (cf > uf ? uf : cf)
-if min
-execute "normal!" min . "zo"
-return 1
-endif
-endfunction
+	function! UnfoldCur()
+		if !&foldenable
+			return
+		endif
+		let cl = line(".")
+		if cl <= 1
+			return
+		endif
+		let cf  = foldlevel(cl)
+		let uf  = foldlevel(cl - 1)
+		let min = (cf > uf ? uf : cf)
+		if min
+			execute "normal!" min . "zo"
+			return 1
+		endif
+	endfunction
 endif
 
 let g:html_indent_inctags = "html,body,head,tbody"
@@ -286,17 +355,15 @@ let g:syntastic_tex_checkers = ['lacheck', 'text/language_check']
 
 
 
-colorscheme shine
 let mysyntaxfile = "~/.vim/mysyntax.vim"
 syntax on
 function Rand()
-return str2nr(matchstr(reltimestr(reltime()), '\v\.@<=\d+')[1:])
+	return str2nr(matchstr(reltimestr(reltime()), '\v\.@<=\d+')[1:])
 endfunction
 
 " c-support    UseTool_cmake and doxygen
 let g:C_UseTool_cmake    = 'yes'
 let g:C_UseTool_doxygen  = 'yes'
-"call mmtemplates#config#Add ( 'C', '/home/kh/.vim/plugged/c-support/c-support/templates/, 'Doxygen', 'ntd' )
 
 
 
@@ -326,27 +393,21 @@ inoremap \fn <C-R>=expand("%:t:r")<CR>
 "Neosnippet
 imap <C-k>     <Plug>(neosnippet_expand_or_jump)
 smap <C-k>     <Plug>(neosnippet_expand_or_jump)
-xmap <C-k>     <Plug>(neosnippet_expand_target)
+xmap <C-k>     <Plug>(neosnippet_expand_or_jump)
+nmap <C-k>     <Plug>(neosnippet_expand_or_jump)
 " SuperTab like snippets behavior.
 " Note: It must be "imap" and "smap".  It uses <Plug> mappings.
-"imap <expr><TAB>
-" \ pumvisible() ? "\<C-n>" :
-" \ neosnippet#expandable_or_jumpable() ?
-" \    "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
-smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-\ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+
+" For conceal markers.
+if has('conceal')
+	set conceallevel=2 concealcursor=niv
+endif
+
 
 let g:neosnippet#enable_snipmate_compatibility = 1
+let g:neosnippet#enable_completed_snippet = 1
 let g:neosnippet#snippets_directory="/home/kh/.vim/MyNeoSnippets,/home/kh/.vim/plugged/vim-snippets/snippets/"
 
-
-
-
-
-"" For conceal markers.
-"if has('conceal')
-"set conceallevel=2 concealcursor=niv
-"endif
 
 
 
@@ -362,16 +423,17 @@ autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in
 
 "
 " Enable omni completion.
-autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+autocmd FileType css           setlocal omnifunc=csscomplete#CompleteCSS
 autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType python setlocal omnifunc=python3complete#Complete
-autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+autocmd FileType javascript    setlocal omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType python        setlocal omnifunc=python3complete#Complete
+autocmd FileType xml           setlocal omnifunc=xmlcomplete#CompleteTags
+autocmd FileType python        set      omnifunc=python3complete#Complete
+
 
 
 
 " KH --------
-colorscheme desert
 inoremap \fn <C-R>=expand("%:t")<CR>
 vnoremap \fn <C-R>=expand("%:t")<CR>
 "put=expand('%:t')
@@ -392,47 +454,47 @@ let g:livedown_browser = "/usr/bin/google-chrome"
 
 " move window to tab
 function MoveToPrevTab()
-"there is only one window
-if tabpagenr('$') == 1 && winnr('$') == 1
-return
-endif
-"preparing new window
-let l:tab_nr = tabpagenr('$')
-let l:cur_buf = bufnr('%')
-if tabpagenr() != 1
-close!
-if l:tab_nr == tabpagenr('$')
-	tabprev
-endif
-sp
-else
-close!
-exe "0tabnew"
-endif
-"opening current buffer in new window
-exe "b".l:cur_buf
+	"there is only one window
+	if tabpagenr('$') == 1 && winnr('$') == 1
+		return
+	endif
+	"preparing new window
+	let l:tab_nr = tabpagenr('$')
+	let l:cur_buf = bufnr('%')
+	if tabpagenr() != 1
+		close!
+		if l:tab_nr == tabpagenr('$')
+			tabprev
+		endif
+		sp
+	else
+		close!
+		exe "0tabnew"
+	endif
+	"opening current buffer in new window
+	exe "b".l:cur_buf
 endfunc
 
 function MoveToNextTab()
-"there is only one window
-if tabpagenr('$') == 1 && winnr('$') == 1
-return
-endif
-"preparing new window
-let l:tab_nr = tabpagenr('$')
-let l:cur_buf = bufnr('%')
-if tabpagenr() < tab_nr
-close!
-if l:tab_nr == tabpagenr('$')
-	tabnext
-endif
-sp
-else
-close!
-tabnew
-endif
-"opening current buffer in new window
-exe "b".l:cur_buf
+	"there is only one window
+	if tabpagenr('$') == 1 && winnr('$') == 1
+		return
+	endif
+	"preparing new window
+	let l:tab_nr = tabpagenr('$')
+	let l:cur_buf = bufnr('%')
+	if tabpagenr() < tab_nr
+		close!
+		if l:tab_nr == tabpagenr('$')
+			tabnext
+		endif
+		sp
+	else
+		close!
+		tabnew
+	endif
+	"opening current buffer in new window
+	exe "b".l:cur_buf
 endfunc
 
 nnoremap <A-.> :call MoveToNextTab()<CR>
@@ -440,24 +502,29 @@ nnoremap <A-,> :call MoveToPrevTab()<CR>
 
 let g:livepreview_previewer = 'okular'
 let g:Latex_PdfViewer ="okular"
-let g:slime_target = "screen"
+"let g:slime_target = "screen"
+let g:slime_target = "tmux"
 let g:slime_paste_file = tempname()
 let g:slime_python_ipython =1
 
 
 "abbr 
-iabbr __email ekh0324@gmail.com
+iabbr <expr> __email ekh0324@gmail.com
 iabbr <expr> __time strftime("%Y-%m-%d %H:%M:%S")
 iabbr <expr> __file expand('%:p')
 iabbr <expr> __name expand('%')
 iabbr <expr> __pwd expand('%:p:h')
 iabbr <expr> __branch system("git rev-parse --abbrev-ref HEAD")
-map <C-j> <C-W>j
-map <C-k> <C-W>k
-map <C-h> <C-W>h
-map <C-l> <C-W>l
+"imap <C-j> <C-W>j
+"imap <C-k> <C-W>k
+"imap <C-h> <C-W>h
+"imap <C-l> <C-W>l
 
-" cscope
+autocmd FileType tex inoremap <silent><expr> __ neosnippet#anonymous('_{${1}}${0}')
+autocmd FileType tex inoremap <silent><expr> ^^ neosnippet#anonymous('^{${1}}${0}')
+
+
+"  cscope
 function! LoadCscope() 
 	let db = findfile("cscope.out", ".;") 
 	if (!empty(db)) 
@@ -465,7 +532,7 @@ function! LoadCscope()
 		set nocscopeverbose " suppress 'duplicate connection' error 
 		exe "cs add " . db . " " . path 
 		set cscopeverbose 
-		" else add the database pointed to by environment variable 
+	" else add the database pointed to by environment variable 
 	elseif $CSCOPE_DB != "" 
 		cs add $CSCOPE_DB 
 	endif 
@@ -480,18 +547,18 @@ let g:Templates_UsePersonalizationFile = 'yes'
 
 let mapleader = '\'
 let maplocalleader = '\'
-set nocompatible
+
 if has('python') " if dynamic py|py3, this line already activates python2.
-  let s:python_version = 2
+	let s:python_version = 2
 elseif has('python3')
-  let s:python_version = 3
+	let s:python_version = 3
 else
-  let s:python_version = 0
+	let s:python_version = 0
 endif
 echomsg 'Using python'.s:python_version
 
 
-"jedi-vim setup
+"jedi-vim setup Python
 let g:jedi#auto_initialization = 1
 
 let g:jedi#goto_command = "<leader>d"
@@ -507,56 +574,125 @@ let g:jedi#environment_path = "/usr/bin/python3"
 "omnicpp
 
 let OmniCpp_DefaultNamespaces = ["std", "kh"]
-map <S-F12> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
+" OmniCppComplete
+let OmniCpp_NamespaceSearch = 1
+let OmniCpp_GlobalScopeSearch = 1
+let OmniCpp_ShowAccess = 1
+let OmniCpp_ShowPrototypeInAbbr = 1 " show function parameters
+let OmniCpp_MayCompleteDot = 1 " autocomplete after .
+let OmniCpp_MayCompleteArrow = 1 " autocomplete after ->
+let OmniCpp_MayCompleteScope = 1 " autocomplete after ::
+let OmniCpp_DefaultNamespaces = ["std", "_GLIBCXX_STD"]
+" automatically open and close the popup menu / preview window
+au CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
+set completeopt=menuone,menu,longest,preview
+
+set tags=./tags,./../tags,./../../tags,./../../../tags,./../../../../tags,./../../../../../tags,tags,../tags,.
+set tags+=~/.vim/tags/cpp
+set tags+=~/.vim/tags/gl
+set tags+=~/.vim/tags/sdl
+set tags+=~/.vim/tags/qt5
+set tags+="~/.vim/tags/lammps"
+set tags+="~/.vim/tags/gsl"
+"au BufReadCmd *.odt,*.ott,*.ods,*.ots,*.odp,*.otp,*.odg,*.otg,*.odb,*.odf,*.odm,*.odc call zip#Browse(expand("<amatch>"))
+"au BufReadCmd *.sxw,*.stw,*.sxc,*.stc,*.sxi,*.sti,*.sxd,*.std,*.odb,*.sxm,*.sxg,*.sxs call zip#Browse(expand("<amatch>"))
+"au BufReadCmd *.bau call zip#Browse(expand("<amatch>"))
+"au BufReadCmd *.oxt call zip#Browse(expand("<amatch>"))
+"au BufReadCmd *.docx,*.dotx,*.dotm,*.docm,*.xlsx,*.xltx,*.xlsm,*.xsltm,*.pptx,*.potx,*.ppsx,*.pptm,*.ppsm,*.potm call zip#Browse(expand("<amatch>"))
 
 
 
-vmap <C-c> "+y
-vmap <C-x> "+d
-vmap <C-S-v> "*<Esc>"+p
-imap <C-S-v> <Esc>"+pi
+map <S-F12> :!ctags -R --c++-kinds=+p --fields=+iaS --extras=+q .<CR>
+
+
+" vmap <C-c> "+y
+" vmap <C-x> "+d
+" vmap <C-S-v> "*<Esc>"+p
+" imap <C-S-v> <Esc>"+pi
 
 packadd lsp
 let lspServers = [
+			\ 		#{
+			\        filetype: ['awk'], path: '/home/kh/git/node_modules/awk-language-server/out/cli.js',
+			\				 omnicompl: v:true
+			\      },
+			\     #{
+			\        filetype: ['vala'],
+			\        path: '/usr/bin/vala-language-server',
+			\        omnicompl: v:true,
+			\        args: []
+			\      },
+			\     #{
+			\        filetype: ['tex'],
+			\        path: '/home/kh/bin/texlab',
+			\        omnicompl: v:true,
+			\        args: []
+			\      },
 			\     #{
 			\        filetype: ['c', 'cpp'],
 			\        path: '/usr/bin/clangd',
+			\        omnicompl: v:true,
 			\        args: ['--background-index']
 			\      },
 			\     #{
 			\	 filetype: ['javascript', 'typescript'],
 			\	 path: '/usr/local/bin/typescript-language-server',
+			\        omnicompl: v:true,
 			\	 args: ['--stdio']
 			\      },
 			\     #{
 			\	 filetype: 'sh',
 			\	 path: '/usr/local/bin/bash-language-server',
+			\        omnicompl: v:true,
 			\	 args: ['start']
 			\      },
 			\     #{
 			\	 filetype: 'vim',
 			\	 path: '/usr/local/bin/vim-language-server',
+			\        omnicompl: v:true,
 			\	 args: ['--stdio']
 			\      },
 			\     #{
 			\	 filetype: ['go', 'gomod'],
 			\	 path: '/usr/bin/gopls',
+			\        omnicompl: v:true,
 			\	 args: ['serve'],
 			\        syncInit: v:true
 			\      },
 			\     #{
 			\	 filetype: ['rust'],
 			\	 path: '/home/kh/.local/bin/rust-analyzer',
+			\        omnicompl: v:true,
 			\	 args: [],
-		\        syncInit: v:true
+			\        syncInit: v:true
 			\      },
 			\     #{
 			\	 filetype: ['python'],
 			\	 path: '/usr/bin/pyls',
+			\        omnicompl: v:true,
 			\	 args: []
 			\      }
 			\   ]
-call LspAddServer(lspServers)
+autocmd VimEnter * call LspAddServer(lspServers)
+
+let lspOpts = {'autoHighlightDiags': v:true}
+autocmd VimEnter * call LspOptionsSet(lspOpts)
+
+nmap <silent> [g :LspDiagPrev
+nmap <silent> ]g :LspDiagNext
+nmap <silent> K :LspHover
+nmap <unique> M <Plug>ManPageView
+
+nmap <silent> gd :LspGotoDefinition
+nmap <silent> gy :LspGotoTypeDef
+nmap <silent> gi :LspGotoImpl
+nmap <silent> gr :LspShowReference    
+
+nmap <silent> <leader>rn :LspRename
+xmap <silent> <leader>gf :LspFormat
+nmap <silent> <leader>gf :LspFormat
+
+
 
 
 " https://github.com/lilydjwg/fcitx.vim
@@ -565,4 +701,39 @@ packadd fcitx
 let g:fcitx5_remote = '/usr/bin/fcitx5-remote'
 set ttimeoutlen=100
 
+
+set number
+
+augroup numbertoggle
+	autocmd!
+	autocmd BufEnter,FocusGained,InsertLeave,WinEnter * if &nu && mode() != "i" | set rnu   | endif
+	autocmd BufLeave,FocusLost,InsertEnter,WinLeave   * if &nu                  | set nornu | endif
+augroup END
+
+
+
+
+let g:user_emmet_install_global = 0
+autocmd FileType html,css EmmetInstall
+
+"sql
+"let g:sw_config_dir = g
+let g:dbext_default_profile_mysql = 'type=MYSQL:user=kh:dbname=khdb'
+let g:dbext_default_profile = 'mysql'
+
+
+packadd vim9-syntax
+
+
+let g:DoxygenToolkit_authorName="KIM Hyeok <ekh0324@gmail.com>"
+
+let g:desktop_enable_kde = v:true
+let g:desktop_enable_nonstd = 1
+
+
+function! Synctex()
+	execute "silent !zathura --synctex-forward " . line('.') . ":" . col('.') . ":" . bufname('%') . " " . g:syncpdf
+	redraw!
+endfunction
+"map <C-enter> :call Synctex()<cr>
 
