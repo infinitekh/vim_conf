@@ -112,10 +112,11 @@
 [submodule "plugged/VimCompletesMe_targetvim9"]
 	path = plugged/VimCompletesMe_targetvim9
 	url = https://github.com/infinitekh/VimCompletesMe_targetvim9
-[submodule "pack/downloads/opt/fcitx"]
-	url = https://github.com/lilydjwg/fcitx.vim
-[submodule "pack/downloads/opt/lsp/"]
+[submodule "lsp"]
+	path = pack/downloads/opt/lsp/
 	url = https://github.com/yegappan/lsp
-[submodule "pack/downloads/opt/vim9-syntax"]
+[submodule "vim9-syntax"]
 	path = pack/downloads/opt/vim9-syntax
 	url = https://github.com/lacygoill/vim9-syntax
+[submodule "pack/downloads/opt/fcitx"]
+	url = https://github.com/lilydjwg/fcitx.vim

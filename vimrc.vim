@@ -3,17 +3,21 @@ call plug#begin('~/.vim/plugged')
 " 설치
 "
 "
+"★     ☆     ⭐
+"
 "sql
 "Plug 'cosminadrianpopescu/vim-sql-workbench'
 Plug 'vim-scripts/dbext.vim'
 
 " Snippets are separated from the engine. Add this if you want them:
-Plug 'honza/vim-snippets'
+" vim-snippet은 필수.
+Plug 'honza/vim-snippets' 
 
 Plug 'peterhoeg/vim-qml'
 
 "conceal unicode
-Plug 'khzaw/vim-conceal'
+"Plug 'khzaw/vim-conceal'
+packadd  vim-conceal_kh
 
 " omni
 Plug 'vim-scripts/OmniCppComplete'
@@ -55,6 +59,7 @@ Plug 'itchyny/lightline.vim'
 
 " Cscople  를 알아야함. leader>s: 이런식의 사용인데 쓸주를 모름.
 Plug 'ronakg/quickr-cscope.vim'
+	let g:quickr_cscope_keymaps = 0
 "
 Plug 'majutsushi/tagbar'
 " git
@@ -238,6 +243,10 @@ Plug 'vim-scripts/DoxygenToolkit.vim'
 
 " 벽돌깨기 
 "Plug 'johngrib/vim-game-code-break'
+"
+"
+Plug 'tommason14/lammps.vim'
+
 call plug#end()
 
 "colorscheme
@@ -284,8 +293,8 @@ set fenc=utf-8
 set fencs=utf-8,cp949,cp932,euc-jp,shift-jis,big5,latin1,ucs-2le
 
 
-map <F10>  :sp tags<CR>:%s/^\([^	:]*:\)\=\([^	]*\).*/syntax keyword Tag \2/<CR>:wq! tags.vim<CR>/^<CR><F12>
-map <F12>  :so tags.vim<CR>
+map <M-F10>  :sp tags<CR>:%s/^\([^	:]*:\)\=\([^	]*\).*/syntax keyword Tag \2/<CR>:wq! tags.vim<CR>/^<CR><M-F12>
+map <M-F12>  :so tags.vim<CR>
 "=============================================
 set csprg=/usr/bin/cscope
 set csto=0
@@ -588,10 +597,12 @@ au CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
 set completeopt=menuone,menu,longest,preview
 
 set tags=./tags,./../tags,./../../tags,./../../../tags,./../../../../tags,./../../../../../tags,tags,../tags,.
-set tags+=~/.vim/tags/cpp
+autocmd FileType cpp set tags+=~/.vim/tags/cpp
 set tags+=~/.vim/tags/gl
 set tags+=~/.vim/tags/sdl
-set tags+=~/.vim/tags/qt5
+
+"autocmd FileType cpp  set tags+=~/.vim/tags/qt5
+autocmd FileType cpp  set tags+=~/.vim/tags/qt6
 set tags+="~/.vim/tags/lammps"
 set tags+="~/.vim/tags/gsl"
 "au BufReadCmd *.odt,*.ott,*.ods,*.ots,*.odp,*.otp,*.odg,*.otg,*.odb,*.odf,*.odm,*.odc call zip#Browse(expand("<amatch>"))
@@ -688,7 +699,7 @@ nmap <silent> gy :LspGotoTypeDef
 nmap <silent> gi :LspGotoImpl
 nmap <silent> gr :LspShowReference    
 
-nmap <silent> <leader>rn :LspRename
+nmap <silent> <leader><F2> :LspRename
 xmap <silent> <leader>gf :LspFormat
 nmap <silent> <leader>gf :LspFormat
 
@@ -736,4 +747,23 @@ function! Synctex()
 	redraw!
 endfunction
 "map <C-enter> :call Synctex()<cr>
-
+"
+"let @s= "★☆☆☆☆        "
+"" ★★★★☆
+"function! SetStar(star=1, maxStar=5) 
+"	let blackstar= "★ "
+"	let whitestar= "☆ "
+"	let @s="\" "
+"	let cstar = a:star
+"	let zerostar= a:maxStar
+"	while cstar > 0
+"		let @s .= blackstar
+"		let cstar -= 1
+"		let zerostar -= 1
+"	endwhile
+"	while zerostar >0
+"		let @s .= whitestar
+"		let zerostar -= 1
+"	endwhile
+"	"let @s .= "                "
+"endfunction
