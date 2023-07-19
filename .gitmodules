@@ -118,5 +118,6 @@
 [submodule "vim9-syntax"]
 	path = pack/downloads/opt/vim9-syntax
 	url = https://github.com/lacygoill/vim9-syntax
-[submodule "pack/downloads/opt/fcitx"]
-	url = https://github.com/lilydjwg/fcitx.vim
+[submodule "pack/downloads/opt/targets.vim"]
+	path = pack/downloads/opt/targets.vim
+	url = https://github.com/wellle/targets.vim

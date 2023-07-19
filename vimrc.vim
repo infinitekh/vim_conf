@@ -1,7 +1,20 @@
+" ctrl+p keyword search 
 call plug#begin('~/.vim/plugged')
 
 " 설치
 "
+"c++
+let g:cpp_function_highlight = 1
+
+" Enable highlighting of C++11 attributes
+let g:cpp_attributes_highlight = 1
+
+" Highlight struct/class member variables (affects both C and C++ files)
+let g:cpp_member_highlight = 1
+
+" Put all standard C and C++ keywords under Vim's highlight group 'Statement'
+" (affects both C and C++ files)
+let g:cpp_simple_highlight = 1
 "
 "★     ☆     ⭐
 "
@@ -15,6 +28,11 @@ Plug 'honza/vim-snippets'
 
 Plug 'peterhoeg/vim-qml'
 
+" iabbr upgraded 
+" %s -> %S     {dis,}like {}love 이런 식으로 사용 여러 조건에 대해서 함께
+" 찾아바꾸기가 된다.
+Plug 'tpope/vim-abolish'
+
 "conceal unicode
 "Plug 'khzaw/vim-conceal'
 packadd  vim-conceal_kh
@@ -27,10 +45,13 @@ let g:clang_library_path='/usr/lib/llvm-14/lib/libclang-14.so.1'
 "
 "Plug 'WolfgangMehner/latex-support'
 Plug 'WolfgangMehner/c-support'
+Plug 'WolfgangMehner/bash-support'
 
 " orgmode
 Plug 'jceb/vim-orgmode'
 
+" 화면 분할했을 때 커서가 없는 영역 backgroud 밝기를 바꿔주는 기능
+Plug 'blueyed/vim-diminactive'
 
 "neosnipeet
 Plug 'Shougo/neosnippet.vim'
@@ -87,7 +108,7 @@ imap <c-x><c-l> <plug>(fzf-complete-line)
 Plug 'honza/vim-snippets'
 
 " vimman
-Plug 'vim-utils/vim-man'
+"Plug 'vim-utils/vim-man'
 " vim complete infinitekh
 "
 Plug 'infinitekh/VimCompletesMe_targetvim9'
@@ -130,13 +151,17 @@ highlight default StargateErrorMessage guifg=#e36659
 highlight default link StargateVisual Visual
 
 
+Plug 'inkarkat/vim-ingo-library'
+Plug 'inkarkat/vim-mark'
 
 Plug 'prabirshrestha/async.vim'
 
 
 Plug 'tpope/vim-surround'
 
+" file serach ctrl+p  keyword search 
 Plug 'ctrlpvim/ctrlp.vim' " file search
+
 
 " User add package
 "Plug 'gabrielelana/vim-markdown'
@@ -163,7 +188,8 @@ let g:syntastic_check_on_wq = 0
 
 "latex
 "
-Plug 'lervag/vimtex'
+"Plug 'lervag/vimtex'
+"Plug 'wellle/targets'
 "augroup VimCompletesMeTex
 "	autocmd!
 "	autocmd FileType tex
@@ -172,26 +198,6 @@ Plug 'lervag/vimtex'
 
 " Using neosnippet#anonymous
 
-
-let g:vimtex_imaps_leader= '`'
-
-let g:tex_flavor='latex'
-let g:vimtex_view_method='zathura'
-let g:vimtex_quickfix_mode=0
-
-let g:vimtex_compiler_method = 'generic'
-function! Callback(msg)
-	" Use a regex match on the compiler output to get automatic VimtexErrors
-	" functionality. The below conditional must likely be changed to be
-	" useful, of course!
-	if a:msg =~# 'error'
-		call vimtex#compiler#callback(!vimtex#qf#inquire(b:vimtex.tex))
-	endif
-endfunction
-let g:vimtex_compiler_generic = {
-			\ 'command' : 'xelatex -synctex=1 --interaction=nonstopmode main.tex',
-			\ 'hooks': [function('Callback')],
-			\}
 
 function! SetupSplits() abort
 	split
@@ -208,24 +214,17 @@ function! Restore() abort
 	set noscrollbind
 endfunction
 
-let g:vimtex_syntax_custom_cmds = [ {'name': 'vect', 'mathmode': 1, 'argstyle': 'bold', 'conceal': 1}]
-"let g:vimtex_syntax_custom_cmds = [ {'name': 'vect', 'mathmode': 1, 'argstyle': 'bold', 'conceal': 1}, {'name': 'mat' , 'mathmode': 1, 'argstyle': 'bold', 'conceal': 1}, {'name': 'bm'  , 'mathmode': 1, 'argstyle': 'bold', 'conceal': 1}, {'name': 'pmb' , 'mathmode': 1, 'argstyle': 'bold', 'conceal': 1}, \ Unicode:, {'name': 'Prob'    , 'mathmode': 1, 'concealchar': 'ℙ'}, {'name': 'Expect'  , 'mathmode': 1, 'concealchar': '������'}, {'name': 'Var'     , 'mathmode': 1, 'concealchar': '������'}, {'name': 'pdf'     , 'mathmode': 1, 'concealchar': '������'}, {'name': 'qdf'     , 'mathmode': 1, 'concealchar': '������'}, {'name': 'NormDist', 'mathmode': 1, 'concealchar': '������'}, {'name': 'Reals'   , 'mathmode': 1, 'concealchar': 'ℝ'}, {'name': 'Imags'   , 'mathmode': 1, 'concealchar': '������'}, {'name': 'Naturals', 'mathmode': 1, 'concealchar': 'ℕ'}, {'name': 'Integers', 'mathmode': 1, 'concealchar': 'ℤ'}, {'name': 'ones'    , 'mathmode': 1, 'concealchar': '������'}, {'name': 'bigO'    , 'mathmode': 1, 'concealchar': '������'}, ]
-"set conceallevel=1
-"let g:tex_conceal='abdmg'
-augroup VimTeX
-	autocmd!
-	autocmd BufReadPre /home/kh/Dropbox/LaTex/thesis_doctor/*.tex
-				\ let b:vimtex_main = '/home/kh/Dropbox/LaTex/thesis_doctor/main.tex'
-	autocmd BufWritePost *.tex call vimtex#toc#refresh()
-augroup END
-
-
 " HTML CSS Javascript
 Plug 'mattn/emmet-vim' " 4Star
 " pretty view [10]
 Plug 'junegunn/vim-easy-align' " 5Star
 xmap ga <Plug>(EasyAlign)
 nmap ga <Plug>(EasyAlign)
+
+" emoji
+Plug 'junegunn/vim-emoji'
+
+
 
 Plug 'godlygeek/tabular'  " easyalign like tool
 " Gtrans
@@ -351,14 +350,16 @@ endif
 
 let g:html_indent_inctags = "html,body,head,tbody"
 let g:syntastic_cpp_compiler = 'g++'
-let g:syntastic_cpp_compiler_options = " -Wall " 
+let g:syntastic_cpp_compiler_options = " -Wall -fopenmp " 
+
+
 
 "let g:syntastic_cpp_no_include_search = 1
 "let g:syntastic_cpp_no_default_include_dirs = 1
 let g:syntastic_cpp_auto_refresh_includes = 1
 
 
-let g:syntastic_c_compiler_options = " -Wall "
+let g:syntastic_c_compiler_options = " -Wall -Wno-pragmas  -fopenmp "
 let g:syntastic_tex_checkers = ['lacheck', 'text/language_check']
 
 
@@ -518,7 +519,8 @@ let g:slime_python_ipython =1
 
 
 "abbr 
-iabbr <expr> __email ekh0324@gmail.com
+iabbr <expr> __email 'ekh0324@gmail.com'
+iabbr <expr> __myname 'KIM Hyeok'
 iabbr <expr> __time strftime("%Y-%m-%d %H:%M:%S")
 iabbr <expr> __file expand('%:p')
 iabbr <expr> __name expand('%')
@@ -623,67 +625,68 @@ map <S-F12> :!ctags -R --c++-kinds=+p --fields=+iaS --extras=+q .<CR>
 
 packadd lsp
 let lspServers = [
-			\ 		#{
-			\        filetype: ['awk'], path: '/home/kh/git/node_modules/awk-language-server/out/cli.js',
-			\				 omnicompl: v:true
-			\      },
-			\     #{
-			\        filetype: ['vala'],
-			\        path: '/usr/bin/vala-language-server',
-			\        omnicompl: v:true,
-			\        args: []
-			\      },
-			\     #{
-			\        filetype: ['tex'],
-			\        path: '/home/kh/bin/texlab',
-			\        omnicompl: v:true,
-			\        args: []
-			\      },
-			\     #{
-			\        filetype: ['c', 'cpp'],
-			\        path: '/usr/bin/clangd',
-			\        omnicompl: v:true,
-			\        args: ['--background-index']
-			\      },
-			\     #{
-			\	 filetype: ['javascript', 'typescript'],
-			\	 path: '/usr/local/bin/typescript-language-server',
-			\        omnicompl: v:true,
-			\	 args: ['--stdio']
-			\      },
-			\     #{
-			\	 filetype: 'sh',
-			\	 path: '/usr/local/bin/bash-language-server',
-			\        omnicompl: v:true,
-			\	 args: ['start']
-			\      },
-			\     #{
-			\	 filetype: 'vim',
-			\	 path: '/usr/local/bin/vim-language-server',
-			\        omnicompl: v:true,
-			\	 args: ['--stdio']
-			\      },
-			\     #{
-			\	 filetype: ['go', 'gomod'],
-			\	 path: '/usr/bin/gopls',
-			\        omnicompl: v:true,
-			\	 args: ['serve'],
-			\        syncInit: v:true
-			\      },
-			\     #{
-			\	 filetype: ['rust'],
-			\	 path: '/home/kh/.local/bin/rust-analyzer',
-			\        omnicompl: v:true,
-			\	 args: [],
-			\        syncInit: v:true
-			\      },
-			\     #{
-			\	 filetype: ['python'],
-			\	 path: '/usr/bin/pyls',
-			\        omnicompl: v:true,
-			\	 args: []
-			\      }
-			\   ]
+			\ #{
+			\ filetype: ['awk'],
+			\ path: '/usr/lib/node_modules/awk-language-server/out/cli.js',
+			\ omnicompl: v:true,
+			\ },
+			\ #{
+			\ filetype: ['vala'],
+			\ path: '/usr/bin/vala-language-server',
+			\ omnicompl: v:true,
+			\ args: []
+			\ },
+			\ #{
+			\ filetype: ['tex'],
+			\ path: '/home/kh/bin/texlab',
+			\ omnicompl: v:true,
+			\ args: []
+			\ },
+			\ #{
+			\ filetype: ['c', 'cpp'],
+			\ path: '/usr/bin/clangd',
+			\ omnicompl: v:true,
+			\ args: ['--background-index']
+			\ },
+			\ #{
+			\ filetype: ['javascript', 'typescript'],
+			\ path: '/usr/local/bin/typescript-language-server',
+			\ omnicompl: v:true,
+			\ args: ['--stdio']
+			\ },
+			\ #{
+			\ filetype: ['sh', 'bash'],
+			\ path: '/usr/node_modules/.bin/bash-language-server',
+			\ omnicompl: v:true,
+			\ args: ['start']
+			\ },
+			\ #{
+			\ filetype: ['vim'] ,
+			\ path: '/usr/local/bin/vim-language-server',
+			\ omnicompl: v:true,
+			\ args: ['--stdio']
+			\ },
+			\ #{
+			\ filetype: ['go', 'gomod'],
+			\ path: '/usr/bin/gopls',
+			\ omnicompl: v:true,
+			\ args: ['serve'],
+			\ syncInit: v:true
+			\ },
+			\ #{
+			\ filetype: ['rust'],
+			\ path: '/home/kh/.local/bin/rust-analyzer',
+			\ omnicompl: v:true,
+			\ args: [],
+			\ syncInit: v:true
+			\ },
+			\ #{
+			\ filetype: ['python'],
+			\ path: '/usr/bin/pyls',
+			\ omnicompl: v:true,
+			\ args: []
+			\ }
+			\ ]
 autocmd VimEnter * call LspAddServer(lspServers)
 
 let lspOpts = {'autoHighlightDiags': v:true}
@@ -708,7 +711,7 @@ nmap <silent> <leader>gf :LspFormat
 
 " https://github.com/lilydjwg/fcitx.vim
 
-packadd fcitx
+"packadd fcitx
 let g:fcitx5_remote = '/usr/bin/fcitx5-remote'
 set ttimeoutlen=100
 
@@ -767,3 +770,56 @@ endfunction
 "	endwhile
 "	"let @s .= "                "
 "endfunction
+"
+"
+"
+"
+"
+"" gimp
+
+function GimpSend()
+    "execute system("send-gimp.sh " . shellescape(getline(".")) )<CR>
+    let reg_save = getreg('"')
+    let regtype_save = getregtype('"')
+    let cb_save = &clipboard
+    set clipboard&
+
+    silent normal! ""y%
+    let selection = getreg('"')
+
+    call setreg('"', reg_save, regtype_save)
+    let &clipboard = cb_save
+    echom system("send-gimp.sh " . shellescape(selection))
+endfunction
+
+autocmd FileType scheme nmap <leader>gs :call GimpSend()<CR>
+
+
+
+
+
+if has("autocmd") && exists("+omnifunc")
+	autocmd Filetype *
+				\	if &omnifunc == "" |
+				\		setlocal omnifunc=syntaxcomplete#Complete |
+				\	endif
+endif
+let g:omni_syntax_group_include_scheme = 'scriptfuFunction,scheme\w\+,scriptfu\w\+'
+let g:omni_syntax_use_iskeyword = 1
+
+" 작가를 위한 Vim
+" 문장 입력시 undo point 저장, 글자를 열심히 쓰다보면 undo가 
+" 한 문단일 수 있음 그러면 귀찮게 visual모드나 backspace 꾹누르기를
+" 해야할 수 있으나 간단히 해결할 수 있음. 
+inoremap . .<C-g>u
+inoremap ! !<C-g>u
+inoremap ? ?<C-g>u
+inoremap : :<C-g>u
+
+"call mmtemplates#config#Add ( 'C', '~/.vimrc/plugged/c-support/templates/doxygen.templates', 'Doxygen', 'ntd' )
+packadd vim-asymptote
+
+let g:C_AdditionalTemplates = []
+call add ( g:C_AdditionalTemplates,
+			\ [ '/home/kh/.vim/plugged/c-support/c-support/templates/doxygen.template', 'Doxygen', 'ntd' ] )
+
